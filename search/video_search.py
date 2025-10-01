@@ -26,7 +26,8 @@ from sentence_transformers import SentenceTransformer, util
 from typing import List, Dict, Tuple, Optional
 
 # Default GitHub repository configuration
-DEFAULT_GITHUB_REPO = "songyanteng/generative_video_activity_dataset"
+# DEFAULT_GITHUB_REPO = "songyanteng/generative_video_activity_dataset"
+DEFAULT_GITHUB_REPO = "generative_video_activity_dataset-8280"
 DEFAULT_BRANCH = "main"
 DEFAULT_VIDEO_PATH = "video_files/original"
 
@@ -216,12 +217,15 @@ class VideoSearchEngine:
         if video_path is None:
             video_path = DEFAULT_VIDEO_PATH
         
-        base_url = f"https://github.com/{github_repo}/blob/{branch}/{video_path}"
+        # base_url = f"https://github.com/{github_repo}/blob/{branch}/{video_path}"
+        base_url = f"https://anonymous.4open.science/r/{github_repo}/blob/{branch}/{video_path}"
         
         for result in results:
             video_id = result["video_id"]
-            result["github_url"] = f"{base_url}/{video_id}.mp4"
-            result["raw_url"] = f"https://raw.githubusercontent.com/{github_repo}/{branch}/{video_path}/{video_id}.mp4"
+            # result["github_url"] = f"{base_url}/{video_id}.mp4"
+            result["github_url"] = f"https://anonymous.4open.science/r/{github_repo}/{video_path}/{video_id}.mp4"
+            # result["raw_url"] = f"https://raw.githubusercontent.com/{github_repo}/{branch}/{video_path}/{video_id}.mp4"
+            result["raw_url"] = f"https://anonymous.4open.science/r/{github_repo}/{video_path}/{video_id}.mp4"
         
         return results
 

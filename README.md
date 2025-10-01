@@ -138,16 +138,16 @@ python video_search.py "your search prompt" --video-path "custom/path"
 
 #### Complete Command Reference
 
-| Option            | Description                          | Default                                         | Example                       |
-| ----------------- | ------------------------------------ | ----------------------------------------------- | ----------------------------- |
-| `query`           | Text prompt to search for (required) | -                                               | Examples provided below       |
-| `--top-n`         | Number of results to return          | 10                                              | `--top-n 5`                   |
-| `--github-repo`   | GitHub repository (username/repo)    | `songyanteng/generative_video_activity_dataset` | `--github-repo "user/repo"`   |
-| `--branch`        | Git branch name                      | `main`                                          | `--branch "develop"`          |
-| `--video-path`    | Path to videos in repository         | `video_files/original`                          | `--video-path "custom/path"`  |
-| `--no-metadata`   | Hide additional metadata             | False                                           | `--no-metadata`               |
-| `--output-format` | Output format (text/json)            | `text`                                          | `--output-format json`        |
-| `--save-results`  | Save results to JSON file            | None                                            | `--save-results results.json` |
+| Option            | Description                          | Default                                  | Example                       |
+| ----------------- | ------------------------------------ | ---------------------------------------- | ----------------------------- |
+| `query`           | Text prompt to search for (required) | -                                        | Examples provided below       |
+| `--top-n`         | Number of results to return          | 10                                       | `--top-n 5`                   |
+| `--github-repo`   | GitHub repository (username/repo)    | `generative_video_activity_dataset-8280` | `--github-repo "user/repo"`   |
+| `--branch`        | Git branch name                      | `main`                                   | `--branch "develop"`          |
+| `--video-path`    | Path to videos in repository         | `video_files/original`                   | `--video-path "custom/path"`  |
+| `--no-metadata`   | Hide additional metadata             | False                                    | `--no-metadata`               |
+| `--output-format` | Output format (text/json)            | `text`                                   | `--output-format json`        |
+| `--save-results`  | Save results to JSON file            | None                                     | `--save-results results.json` |
 
 ### Programmatic Usage
 
@@ -165,7 +165,7 @@ results = search_engine.search("peaceful indoor activity", top_n=5)
 # Generate GitHub URLs
 results = search_engine.generate_github_urls(
     results,
-    github_repo="songyanteng/generative_video_activity_dataset",
+    github_repo="generative_video_activity_dataset-8280",
     branch="main",
     video_path="video_files/original"
 )
