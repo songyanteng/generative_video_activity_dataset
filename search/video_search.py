@@ -26,7 +26,6 @@ from sentence_transformers import SentenceTransformer, util
 from typing import List, Dict, Tuple, Optional
 
 # Default GitHub repository configuration
-# DEFAULT_GITHUB_REPO = "songyanteng/generative_video_activity_dataset"
 DEFAULT_GITHUB_REPO = "generative_video_activity_dataset-8280"
 DEFAULT_BRANCH = "main"
 DEFAULT_VIDEO_PATH = "video_files/original"
