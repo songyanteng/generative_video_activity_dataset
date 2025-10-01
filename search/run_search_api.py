@@ -74,7 +74,6 @@ def search_videos():
         return jsonify({"error": "Query parameter is required"}), 400
     
     top_n = int(request.args.get('top_n', 5))
-    # github_repo = request.args.get('github_repo', 'songyanteng/generative_video_activity_dataset')
     github_repo = request.args.get('github_repo', 'generative_video_activity_dataset-8280')
     branch = request.args.get('branch', 'main')
     
@@ -119,7 +118,6 @@ def embed_snippet():
     """
     api_url = request.args.get('api_url', request.url_root.rstrip('/'))
     default_top_n = int(request.args.get('default_top_n', 3))
-    # github_repo = request.args.get('github_repo', 'songyanteng/generative_video_activity_dataset')
     github_repo = request.args.get('github_repo', 'generative_video_activity_dataset-8280')
     branch = request.args.get('branch', 'main')
     show_controls = request.args.get('show_controls', 'false').lower() == 'true'
