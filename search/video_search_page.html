@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Search Page</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f6f8fa;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        color: #24292e;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .instructions {
+        background: #e7f3ff;
+        border: 1px solid #b3d9ff;
+        border-radius: 6px;
+        padding: 2px;
+        margin-bottom: 10px;
+      }
+
+      .instructions h3 {
+        margin-top: 0;
+        color: #0969da;
+      }
+
+      .instructions code {
+        background: #f1f8ff;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Monaco", "Menlo", monospace;
+      }
+
+      .widget-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Video Search Page</h1>
+
+      <div class="instructions">
+        <ul>
+          <li>
+            Make sure the Flask API is running:
+            <code>python run_search_api.py</code>
+          </li>
+          <li>
+            The API should be accessible at <code>http://localhost:5000</code>
+          </li>
+        </ul>
+      </div>
+
+      <div class="widget-container">
+        <!-- Configuration controls -->
+        <div
+          style="
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e1e5e9;
+          "
+        >
+          <h4 style="margin-top: 0; color: #24292e">Widget Configuration</h4>
+          <div
+            style="
+              display: flex;
+              gap: 20px;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <div>
+              <label
+                for="videoCount"
+                style="display: block; margin-bottom: 5px; font-weight: 500"
+                >Number of videos (1-1000):</label
+              >
+              <input
+                type="number"
+                id="videoCount"
+                min="1"
+                max="1000"
+                value="5"
+                style="
+                  padding: 8px;
+                  border: 1px solid #d1d5da;
+                  border-radius: 4px;
+                  width: 80px;
+                "
+              />
+              <div
+                id="statusMessage"
+                style="font-size: 12px; color: #6c757d; margin-top: 4px"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The widget will be embedded here -->
+        <iframe
+          id="widgetFrame"
+          src="http://localhost:5000/embed?default_top_n=5&show_controls=true"
+          width="100%"
+          height="600"
+          frameborder="0"
+          style="border-radius: 8px"
+          title="Video Search Widget"
+        >
+        </iframe>
+      </div>
+    </div>
+
+    <script>
+      let updateTimeout;
+
+      // Handle automatic widget updates when video count changes
+      document
+        .getElementById("videoCount")
+        .addEventListener("input", function () {
+          const videoCount = parseInt(this.value);
+          const statusMessage = document.getElementById("statusMessage");
+
+          // Clear any existing timeout
+          clearTimeout(updateTimeout);
+
+          // Validate input
+          if (isNaN(videoCount) || videoCount < 1 || videoCount > 1000) {
+            statusMessage.textContent = "Enter a number between 1 and 1000";
+            statusMessage.style.color = "#d73a49";
+            return;
+          }
+
+          // Show updating message
+          statusMessage.textContent = "Updating widget...";
+          statusMessage.style.color = "#6c757d";
+
+          // Debounce the update to avoid too many requests
+          updateTimeout = setTimeout(() => {
+            updateWidget(videoCount);
+          }, 800); // Wait 800ms after user stops typing
+        });
+
+      function updateWidget(videoCount) {
+        const iframe = document.getElementById("widgetFrame");
+        const statusMessage = document.getElementById("statusMessage");
+
+        // Build new URL with updated parameters
+        const newUrl = `http://localhost:5000/embed?default_top_n=${videoCount}&show_controls=true`;
+
+        // Update iframe source to reload with new configuration
+        iframe.src = newUrl;
+
+        // Show success message
+        statusMessage.textContent = `Updated to ${videoCount} videos`;
+        statusMessage.style.color = "#28a745";
+
+        // Clear message after 2 seconds
+        setTimeout(() => {
+          statusMessage.textContent = "";
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
